@@ -13,3 +13,6 @@ Install
 npm install
 bower update
 grunt
+
+- start the server
+    grunt server
