@@ -1,40 +1,14 @@
 <div class="header">
   <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#">Home</a></li>
-    <li><a ng-href="#">About</a></li>
-    <li><a ng-href="#">Contact</a></li>
+    <li class="active"><a ng-href="#">Messages</a></li>
+    <li><a ng-href="#">Tasks</a></li>
   </ul>
-  <h3 class="text-muted">bid</h3>
+  <h3 class="text-muted">Business Intelligence Dashboard</h3>
 </div>
 
 <div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-
-    <canvas id="myChart" width="400" height="400"></canvas>
-
-    <script type="text/javascript">
-
-        var data = {
-            labels : ["Jan","Feb","Mar","Apr","May","Jun","Jul"],
-            datasets : [
-                {
-                    fillColor : "rgba(220,220,220,0.5)",
-                    strokeColor : "rgba(220,220,220,1)",
-                    data : [65,59,90,81,56,55,40]
-                },
-                {
-                    fillColor : "rgba(151,187,205,0.5)",
-                    strokeColor : "rgba(151,187,205,1)",
-                    data : [28,48,40,19,96,27,100]
-                }
-            ]
-        };
-
-        var ctx = document.getElementById("myChart").getContext("2d");
-        new Chart(ctx).Bar(data);
-    </script>
-
-
+  <h1>Messages</h1>
+    <barchart/>
 </div>
 
 
