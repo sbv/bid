@@ -2,16 +2,11 @@
 
 angular.module('bidApp')
     .controller('MainCtrl', ['$scope', 'Data', function ($scope, Data) {
+      $scope.messages = Data.filterData('2012');
+      $scope.period = Data.periodData();
+      $scope.type = Data.typeData();
 
-      $scope.data1 = Data.filteredData();
-
-      $scope.year2012Clicked = function () {
-        Data.query2();
-        $scope.data1 = Data.filteredData();
-      };
-
-      $scope.year2013Clicked = function () {
-        Data.query3();
-        $scope.data1 = Data.filteredData();
-      };
+      $scope.$on('bidFilterStarted', function(e, option) {
+        $scope.messages = Data.filterData(option);
+      });
     }]);

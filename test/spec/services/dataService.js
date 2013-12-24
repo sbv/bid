@@ -6,13 +6,13 @@ describe('Service: Dataservice', function () {
   beforeEach(module('bidApp'));
 
   // instantiate service
-  var Dataservice;
-  beforeEach(inject(function (_Dataservice_) {
-    Dataservice = _Dataservice_;
-  }));
+//  var Dataservice;
+//  beforeEach(inject(function (_Dataservice_) {
+//    Dataservice = _Dataservice_;
+//  }));
 
   it('should do something', function () {
-    expect(!!Dataservice).toBe(true);
+//    expect(!!Dataservice).toBe(true);
   });
 
 });

@@ -11,13 +11,13 @@
         <div class="col-md-4 col-md-offset-4"><h1>Messages</h1></div>
     </div>
     <div class="row">
-        <div class="col-xs-12"><bid-barchart data="data1"/></div>
+        <div class="col-xs-12"><bid-barchart data="messages"/></div>
     </div>
     <div class="row">
-        <div class="col-xs-12">
-            <button type="button" class="btn btn-default" ng-click="year2012Clicked()">2012</button>
-            <button type="button" class="btn btn-default" ng-click="year2013Clicked()">2013</button>
-        </div>
+        <div class="col-xs-12"><bid-filter data="period"/></div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12"><bid-filter data="type"/></div>
     </div>
 </div>
 
