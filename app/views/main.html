@@ -1,24 +1,110 @@
 <div class="header">
   <ul class="nav nav-pills pull-right">
-    <li class="active"><a ng-href="#">Messages</a></li>
-    <li><a ng-href="#">Tasks</a></li>
+    <li class="active"><a ng-href="#">System 1</a></li>
+    <li><a ng-href="#">System 2</a></li>
   </ul>
   <h3 class="text-muted">Business Intelligence Dashboard</h3>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-4 col-md-offset-4"><h1>Messages</h1></div>
+        <!--<div class="col-md-4 col-md-offset-4"><h1>Messages</h1></div>-->
+        <div class="col-md-12"><h1>Books</h1></div>
     </div>
     <div class="row">
-        <div class="col-xs-12"><bid-barchart data="messages"/></div>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <!--<div class="panel-heading">Date Histogram Example</div>-->
+                <div class="panel-body">
+                    <div style="height:200px">
+                        <fs:date-histo
+                                duration="750"
+                                interval="month"
+                                on-click="filterSearchA"
+                                bind="results.facets.Times"
+                                />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-xs-12"><bid-filter data="period"/></div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Period</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div style="height:300px">
+                                <fs:donut
+                                        outer-radius="200"
+                                        inner-radius="75"
+                                        duration="750"
+                                        on-click="filterSearchA"
+                                        bind="results.facets.Product" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="height:300px">
+                                <fs:bar
+                                        width="400"
+                                        height="175"
+                                        duration="750"
+                                        on-click="filterSearchA"
+                                        bind="results.facets.Product"
+                                        />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Type</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div style="height:300px">
+                                <fs:donut
+                                        outer-radius="200"
+                                        inner-radius="75"
+                                        duration="750"
+                                        on-click="filterSearchA"
+                                        bind="results.facets.Sex" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div style="height:300px">
+                                <fs:bar
+                                        width="400"
+                                        height="175"
+                                        duration="750"
+                                        on-click="filterSearchA"
+                                        bind="results.facets.Sex"
+                                        />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--
+    <div class="row">
+        <div class="col-md-12"><bid-barchart data="messages"/></div>
     </div>
     <div class="row">
-        <div class="col-xs-12"><bid-filter data="type"/></div>
+        <div class="col-md-12"><bid-filter data="period"/></div>
     </div>
+    <div class="row">
+        <div class="col-md-12"><bid-filter data="type"/></div>
+    </div>
+-->
 </div>
 
 

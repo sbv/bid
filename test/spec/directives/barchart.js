@@ -2,6 +2,7 @@
 
 describe('Directive: bidBarchart', function () {
 
+/*
   // load the directive's module
   beforeEach(module('bidApp'));
 
@@ -17,4 +18,5 @@ describe('Directive: bidBarchart', function () {
 //    element = $compile(element)(scope);
 //    expect(element.text()).toBe('this is the barchart directive');
   }));
+*/
 });
