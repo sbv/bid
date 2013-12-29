@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('bidApp')
-    .controller('MainCtrl', ['$scope', 'Data', '$log', function ($scope, Data, $log) {
+    .controller('MainCtrl', ['$scope', 'Data', '$log', 'ejsResource', function ($scope, Data, $log, ejsResource) {
       $scope.messages = Data.filterData('2012');
       $scope.period = Data.periodData();
       $scope.type = Data.typeData();
@@ -9,6 +9,31 @@ angular.module('bidApp')
       $scope.$on('bidFilterStarted', function(e, option) {
         $scope.messages = Data.filterData(option);
       });
+
+
+
+
+
+      // point to your ElasticSearch server
+      var ejs = ejsResource('http://localhost:9200');
+      var index = 'movies';
+      var type = 'movie';
+
+      // setup the indices and types to search across
+      var request = ejs.Request().indices(index).types(type);
+
+      // define our search function that will be called when a user
+      // submits a search
+      $scope.search = function() {
+        request.query(ejs.QueryStringQuery($scope.queryTerm || '*')).doSearch(function(results){
+          $scope.results = results;
+          $log.log(results);
+        });
+      };
+
+
+
+
 
       var resultsA = {
         facets: {

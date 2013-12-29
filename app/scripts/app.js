@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('bidApp', ['dangle','ngRoute'])
+angular.module('bidApp', ['elasticjs.service','dangle','ngRoute'])
     .config(['$routeProvider', function ($routeProvider) {
       $routeProvider
           .when('/', {
