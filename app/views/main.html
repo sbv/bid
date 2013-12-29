@@ -12,22 +12,20 @@
     </div>
     <div class="row">
         <div class="col-md-12">
-            <button type="button" class="btn btn-default" ng-click="search()">Search</button>
-            <div class="span4 offset4">
-                <span class="span5">Found {{results.hits.total}} Results</span></span>
-            </div>
+            <button type="button" class="btn btn-default" ng-click="indexSampleDocs()">Index testdata</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div style="height:200px">
+                    <div style="height:300px">
                         <fs:date-histo
                                 duration="750"
+                                width="1100"
                                 interval="month"
-                                on-click="filterSearchA"
-                                bind="results.facets.Times"
+                                on-click="filterPeriod"
+                                bind="results.facets.period"
                                 />
                     </div>
                 </div>
@@ -35,39 +33,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Period</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div style="height:300px">
-                                <fs:donut
-                                        outer-radius="200"
-                                        inner-radius="75"
-                                        duration="750"
-                                        on-click="filterSearchA"
-                                        bind="results.facets.Product" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div style="height:300px">
-                                <fs:bar
-                                        width="400"
-                                        height="175"
-                                        duration="750"
-                                        on-click="filterSearchA"
-                                        bind="results.facets.Product"
-                                        />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Type</h3>
@@ -75,13 +41,13 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <div style="height:300px">
+                            <div style="height:400px">
                                 <fs:donut
                                         outer-radius="200"
                                         inner-radius="75"
                                         duration="750"
                                         on-click="filterSearchA"
-                                        bind="results.facets.Sex" />
+                                        bind="results.facets.types" />
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -91,7 +57,7 @@
                                         height="175"
                                         duration="750"
                                         on-click="filterSearchA"
-                                        bind="results.facets.Sex"
+                                        bind="results.facets.types"
                                         />
                             </div>
                         </div>

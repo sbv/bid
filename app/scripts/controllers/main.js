@@ -16,137 +16,56 @@ angular.module('bidApp')
 
       // point to your ElasticSearch server
       var ejs = ejsResource('http://localhost:9200');
-      var index = 'movies';
-      var type = 'movie';
+      var index = 'system1';
+      var type = 'book';
 
       // setup the indices and types to search across
-      var request = ejs.Request().indices(index).types(type);
-
       // define our search function that will be called when a user
       // submits a search
-      $scope.search = function() {
-        request.query(ejs.QueryStringQuery($scope.queryTerm || '*')).doSearch(function(results){
-          $scope.results = results;
-          $log.log(results);
-        });
+      ejs.Request().indices(index).types(type)
+          .facet(ejs.TermsFacet('types').field('type'))
+          .facet(ejs.DateHistogramFacet('period').field('created').interval('year')).doSearch(function(results){
+            $scope.results = results;
+            $log.log(results);
+          });
+
+      $scope.filterPeriod = function (type1, intervalBucket) {
+        $log.log(type1+' '+intervalBucket);
+        var fromTS = new Date(intervalBucket);
+        var toTS = new Date(fromTS.getFullYear() + 1, fromTS.getMonth(), fromTS.getDate()).getTime();
+        var rangeFilter = ejs.RangeFilter('created').gte(intervalBucket).lt(toTS);
+        ejs.Request().indices(index).types(type)
+            .facet(ejs.TermsFacet('types').field('type').facetFilter(rangeFilter))
+            .facet(ejs.DateHistogramFacet('period').field('created').interval('month').facetFilter(rangeFilter)).doSearch(function(results){
+              $scope.results = results;
+              $log.log(results);
+            });
+
       };
 
+      function getRandomInt (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
 
+      function getRandomType () {
+        return Math.random()<0.6?'softback':'hardback';
+      }
 
+      function getCreatedTS () {
+        var fromDate = new Date(2006, 0, 1);
+        var toDate = new Date(2013, 11, 24);
+        var date = new Date(getRandomInt(fromDate.getTime(), toDate.getTime()));
+        return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+date.getHours()+':'+date.getMinutes()+':'+date.getSeconds();
+      }
 
-
-      var resultsA = {
-        facets: {
-          Product : {
-            _type : 'terms',
-            missing : 0,
-            total : 454,
-            other : 0,
-            terms : [{
-              term : 'Prod-A',
-              count : 306
-            },{
-              term : 'Prod-B',
-              count : 148
-            },{
-              term : 'Prod-C',
-              count : 62
-            }]
-          },
-          Sex : {
-            _type : 'terms',
-            missing : 0,
-            total : 454,
-            other : 0,
-            terms : [{
-              term : 'Male',
-              count : 36
-            },{
-              term : 'Female',
-              count : 148
-            }]
-          },
-          Times : {
-            _type: 'date_histogram',
-            entries : [{
-              time : 1341100800000,
-              count : 9
-            }, {
-              time : 1343779200000,
-              count : 32
-            }, {
-              time : 1346457600000,
-              count : 78
-            }, {
-              time : 1349049600000,
-              count : 45
-            }, {
-              time : 1351728000000,
-              count : 134
-            }]
-          }
+      // index the sample documents
+      $scope.indexSampleDocs = function () {
+        for (var i = 0; i < 100; i++) {
+          ejs.Document(index, type).source({
+            type: getRandomType(),
+            created: getCreatedTS()
+          }).refresh(true).doIndex();
         }
       };
-
-      var resultsB = {
-        facets: {
-          Product : {
-            _type : 'terms',
-            missing : 0,
-            total : 454,
-            other : 0,
-            terms : [{
-              term : 'Prod-A',
-              count : 306
-            },{
-              term : 'Prod-B',
-              count : 148
-            },{
-              term : 'Prod-C',
-              count : 0
-            }]
-          },
-          Sex : {
-            _type : 'terms',
-            missing : 0,
-            total : 454,
-            other : 0,
-            terms : [{
-              term : 'Male',
-              count : 36
-            }]
-          },
-          Times : {
-            _type: 'date_histogram',
-            entries : [{
-              time : 1341100800000,
-              count : 9
-            }, {
-              time : 1343779200000,
-              count : 32
-            }, {
-              time : 1346457600000,
-              count : 78
-            }]
-          }
-        }
-      };
-
-      $scope.filterSearchA = function(type, term) {
-        $log.log('type: '+type+', term: '+term);
-        switch(currentResults) {
-          case 'A':
-            $scope.results = resultsB;
-            currentResults = 'B';
-            break;
-          case 'B':
-            $scope.results = resultsA;
-            currentResults = 'A';
-            break;
-        }
-      };
-
-      $scope.results = resultsA;
-      var currentResults = 'A';
 
     }]);
