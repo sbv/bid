@@ -19,7 +19,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <div style="height:300px">
+                    <div style="height:250px">
                         <fs:date-histo
                                 duration="750"
                                 width="1100"
@@ -27,6 +27,10 @@
                                 on-click="filterPeriod"
                                 bind="results.facets.period"
                                 />
+                    </div>
+                    <div ng-show="yearSelected" style="width:100px;" class="alert alert-info alert-dismissable">
+                        <button ng-click="removeSelectedYear()" type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>{{yearSelected}}</strong>
                     </div>
                 </div>
             </div>
@@ -46,7 +50,7 @@
                                         outer-radius="200"
                                         inner-radius="75"
                                         duration="750"
-                                        on-click="filterSearchA"
+                                        on-click="filterType"
                                         bind="results.facets.types" />
                             </div>
                         </div>
@@ -56,9 +60,17 @@
                                         width="400"
                                         height="175"
                                         duration="750"
-                                        on-click="filterSearchA"
+                                        on-click="filterType"
                                         bind="results.facets.types"
                                         />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div ng-show="typeSelected" style="width:150px;" class="alert alert-info alert-dismissable">
+                                <button ng-click="removeSelectedType()" type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <strong>{{typeSelected}}</strong>
                             </div>
                         </div>
                     </div>
